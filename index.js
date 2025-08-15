@@ -19,16 +19,24 @@ function contar() {
 }
 
 function entrar() {
+
     var nome = document.getElementById("nome").value;
     var cor = document.getElementById("cor").value;
     var num = document.getElementById("num").value;
     var texto = document.getElementById("texto").value;
-    
+    var link = document.getElementById("linkHome").value;
+    var senha = document.getElementById("senha").value;
+    var lista = document.getElementById("lista").value;
 
+    var itens = lista.split("/n").map(item => item.trim()).filter(item => item !== "");
+
+    localStorage.setItem("Lista", itens);
+    localStorage.setItem("linkHome", link);
     localStorage.setItem("nome", nome);
     localStorage.setItem("cor", cor);
     localStorage.setItem("num", num);
     localStorage.setItem("texto", texto);
+    localStorage.setItem("senha", senha);
     
     window.location.href = "home.html";
 }
