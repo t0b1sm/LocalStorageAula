@@ -3,6 +3,15 @@ document.body.style.textAlign = "center";
 document.body.style.alignItems = "center";
 document.body.style.fontFamily = "arial";
 
+window.onload = function(){
+    if(localStorage.getItem("nome")){
+        document.getElementById("nome").value = localStorage.getItem("nome");
+    }
+}
+var nome = document.getElementById("nome").value;
+//if(nome !== ""){
+//localStorage.setItem("nome", nome);
+//}
 //hora de acesso ---------------------------------------------------------------------------------------------------------------------------
 
 const horario = localStorage.getItem("horarioAcesso");
@@ -32,10 +41,26 @@ function lista(){
     console.log(listaCompras);
 }
 
+//Mostrar Senha -------------------------------------------------------------------------------------------------------------------------------
+
+function Show(){
+    const input = document.getElementById("password")
+    if(input.type === "password"){
+        input.type = "text"
+    }
+    else{
+        input.type = "password"
+    }
+}
+
 //Entrar----------------------------------------------------------------------------------------------------------------------------------------
+var confirmacao = prompt("Você permite que o site guarde suas informações? (sim/não)").toLowerCase;
+    
 
 function entrar() {
     
+    
+    if(confirmacao == 'sim'){
     //horario----------------------------------------------------------------------------------------------------------------------------------------
     localStorage.removeItem("horarioAcesso");
     
@@ -45,22 +70,34 @@ function entrar() {
     }
     
     //puxa o valor do input pra variável----------------------------------------------------------------------------------------------------------------------------------------
-    var nome = document.getElementById("nome").value;
+
     var cor = document.getElementById("cor").value;
     var num = document.getElementById("num").value;
-    var texto = document.getElementById("texto").value;
     var link = document.getElementById("linkHome").value;
     var password = document.getElementById("password").value;
 
     //envia pro local storage----------------------------------------------------------------------------------------------------------------------------------------
 
-    localStorage.setItem("linkHome", link);
-    localStorage.setItem("nome", nome);
+    if(link !== ""){
+        localStorage.setItem("linkHome", link);
+    }
+    if(num !== ""){
+        localStorage.setItem("num", num);
+    }
+    if(password !== ""){
+        localStorage.setItem("password", password);
+    }
+    else{
+        alert("você deixou um campo em branco!");
+        return;
+    }
     localStorage.setItem("cor", cor);
-    localStorage.setItem("num", num);
-    localStorage.setItem("texto", texto);
-    localStorage.setItem("password", password);
     localStorage.setItem("ListaCompras", JSON.stringify(listaCompras));
     
     window.location.href = "home.html";
+}
+else if(confirmacao === "não"){
+    alert("Você não pode entrar sem aceitar!");
+    return;
+}
 }
